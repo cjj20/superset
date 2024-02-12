@@ -23,3 +23,6 @@
 #   bigquery: "path/to/s3bucket/bigquery.jpg"
 #   snowflake: "path/to/image/snowflake.jpg"
     mySQL: "https://i.ibb.co/QDXHzzJ/mysql.jpg"
+ 
+ DB_CUSTOM_IMAGES:
+     Apex: "http://localhost:9000/static/assets/images/apex-commandalkon.svg"

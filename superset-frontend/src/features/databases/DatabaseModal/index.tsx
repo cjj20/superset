@@ -52,6 +52,7 @@ import {
   useAvailableDatabases,
   useDatabaseValidation,
   getDatabaseImages,
+  getCustomDatabaseImages,
   getConnectionAlert,
   useImportResource,
 } from 'src/views/CRUD/hooks';
@@ -616,6 +617,7 @@ const DatabaseModal: FunctionComponent<DatabaseModalProps> = ({
 
   const conf = useCommonConf();
   const dbImages = getDatabaseImages();
+  const dbCustomImages = getCustomDatabaseImages();
   const connectionAlert = getConnectionAlert();
   const isEditMode = !!databaseId;
   const disableSSHTunnelingForEngine = (
@@ -1054,7 +1056,9 @@ const DatabaseModal: FunctionComponent<DatabaseModalProps> = ({
             className="preferred-item"
             onClick={() => setDatabaseModel(database.name)}
             buttonText={database.name}
-            icon={dbImages?.[database.engine]}
+            icon={
+               dbImages?.[database.engine] || dbCustomImages?.[database.name]
+            }
             key={`${database.name}`}
           />
         ))}
