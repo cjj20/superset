@@ -642,9 +642,10 @@ const DatabaseModal: FunctionComponent<DatabaseModalProps> = ({
 
   const dbModel: DatabaseForm =
     availableDbs?.databases?.find(
-      (available: { engine: string | undefined }) =>
+      (available: { engine: string | undefined; name: string | undefined }) =>
         // TODO: we need a centralized engine in one place
-        available.engine === (isEditMode ? db?.backend : db?.engine),
+        available.engine === (isEditMode ? db?.backend : db?.engine) &&
+        available.name == db?.database_name,
     ) || {};
 
   // Test Connection logic
@@ -1987,7 +1988,8 @@ const DatabaseModal: FunctionComponent<DatabaseModalProps> = ({
                 {hasAlert && renderStepTwoAlert()}
                 {renderDatabaseConnectionForm()}
                 <div css={(theme: SupersetTheme) => infoTooltip(theme)}>
-                  {dbModel.engine !== Engines.GSheet && (
+                  {dbModel.engine !== Engines.GSheet || 
+                   (dbModel.name !== 'Cmic' && (
                     <>
                       <Button
                         data-test="sqla-connect-btn"
@@ -2016,7 +2018,7 @@ const DatabaseModal: FunctionComponent<DatabaseModalProps> = ({
                         viewBox="0 -6 24 24"
                       />
                     </>
-                  )}
+                  ))}
                 </div>
                 {/* Step 2 */}
                 {showDBError && errorAlert()}

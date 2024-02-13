@@ -446,13 +446,17 @@ class BaseEngineSpec:  # pylint: disable=too-many-public-methods
         return cls.supports_backend(backend, driver)
 
     @classmethod
-    def supports_backend(cls, backend: str, driver: str | None = None) -> bool:
+    def supports_backend(cls, backend: str, database_name: str | None = None, driver: str | None = None) -> bool:
         """
         Returns true if the DB engine spec supports a given SQLAlchemy backend/driver.
         """
         # check the backend first
         if backend != cls.engine and backend not in cls.engine_aliases:
             return False
+
+        #check the database name if provided
+        if database_name is not None and database_name != cls.engine_name:
+            return false
 
         # originally DB engine specs didn't declare any drivers and the check was made
         # only on the engine; if that's the case, ignore the driver for backwards
